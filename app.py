@@ -1,5 +1,8 @@
 from flask import Flask, jsonify, request
+from httplib2 import Credentials
 import pyrebase
+import firebase_admin
+from firebase_admin import auth
 
 config = {
     "apiKey": "AIzaSyAQsgygjK06AsyrAKg_HrbvO4dzItFeYTU",
@@ -8,12 +11,12 @@ config = {
     "projectId": "conecaooporapi",
     "storageBucket": "conecaooporapi.appspot.com",
     "messagingSenderId": "467005917293",
-    "appId": "1:467005917293:web:1aa02d35bb9483ae8b9764"
+    "appId": "1:467005917293:web:1aa02d35bb9483ae8b976"
 }
 firebase = pyrebase.initialize_app(config)
 
-storage = firebase.storage()
 
+storage = firebase.storage()
 
 app = Flask(__name__)
 
@@ -81,4 +84,6 @@ def excluir_livro(id):
     return jsonify(livros)
 
 
+default_app = firebase_admin.initialize_app(Credentials)
+print(default_app.name)
 app.run(debug=True)
