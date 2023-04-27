@@ -1,89 +1,28 @@
-from flask import Flask, jsonify, request
-from httplib2 import Credentials
-import pyrebase
-import firebase_admin
-from firebase_admin import auth
-
-config = {
-    "apiKey": "AIzaSyAQsgygjK06AsyrAKg_HrbvO4dzItFeYTU",
-    "authDomain": "conecaooporapi.firebaseapp.com",
-    "databaseURL": "https://conecaooporapi-default-rtdb.firebaseio.com",
-    "projectId": "conecaooporapi",
-    "storageBucket": "conecaooporapi.appspot.com",
-    "messagingSenderId": "467005917293",
-    "appId": "1:467005917293:web:1aa02d35bb9483ae8b976"
-}
-firebase = pyrebase.initialize_app(config)
-
-
-storage = firebase.storage()
+from flask import Flask, request
+from firebase_admin import credentials
+from flask_firebase_admin import FirebaseAdmin
 
 app = Flask(__name__)
-
-livros = [
-    {
-        "id": 1,
-        "título": "O Senhor dos Anéis - A Sociedade do Anel",
-        "autor": "J.R.R Tolkien"
-    },
-    {
-        "id": 2,
-        "titulo": "Harry Potter e a Pedra Filosofal",
-        "autor": "J.K Howling"
-    },
-    {
-        "id": 3,
-        "titulo": "James Clear",
-        "autor": "Hábitos Atômicos"
-    },
-]
-
-# Consultar (todos)
+app.config["FIREBASE_ADMIN_CREDENTIAL"] = credentials.Certificate(
+    r"C:\Users\joao.santos\Documents\DEV\PythonApi\firebase.json")
+app.config["FIREBASE_ADMIN_AUTHORIZATION_SCHEME"] = "JWT"
+app.config["FIREBASE_ADMIN_CHECK_REVOKED"] = False
+app.config["FIREBASE_ADMIN_PAYLOAD_ATTR"] = "firebase_jwt"
 
 
-@app.route("/livros", methods=["GET"])
-def obter_livros():
-    return jsonify(livros)
-
-# Consultar (id)
+firebase = FirebaseAdmin(app)
 
 
-@app.route("/livros/<int:id>", methods=["GET"])
-def obter_livro_por_id(id):
-    for livro in livros:
-        if livro.get("id") == id:
-            return jsonify(livro)
+@app.route("/unprotected")
+def unprotected():
+    return {"message": "Hello anonymous user!"}
 
 
-# Editar
-@app.route("/livros/<int:id>", methods=["PUT"])
-def editar_livro_por_id(id):
-    livro_alterado = request.get_json()
-    for indice, livro in enumerate(livros):
-        if livro.get("id") == id:
-            livros[indice].update(livro_alterado)
-            return jsonify(livros[indice])
+@app.route("/protected")
+@firebase.jwt_required
+def protected():
+    return {"message": f"Hello {request.jwt_payload['email']}!"}
 
 
-# Criar
-@app.route("/livros", methods=["POST"])
-def incluir_novo_livro():
-    novo_livro = request.get_json()
-    livros.append(novo_livro)
-
-    return jsonify(livros)
-
-
-# Excluir
-@app.route("/livros/<int:id>", methods=["DELETE"])
-def excluir_livro(id):
-    for indice, livro in enumerate(livros):
-        if livro.get("id") == id:
-            del livros[indice]
-
-    return jsonify(livros)
-
-
-default_app = firebase_admin.initialize_app(Credentials)
-print(default_app.name)
-app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)

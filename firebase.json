@@ -1,0 +1,47 @@
+{
+  "type": "service_account",
+  "project_id": "conecaooporapi",
+  "private_key_id": "bb51989fafe8a270f63cd70dbfce74c5c597b316",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDGzAMdbRsSgjwK\n2dDmLNvA+or1E8g/e0Czm3390naDuAir1ZLH0jIj1e7f/HR7OKW0iyR8LP/WHP3X\nhLuUFqsKosH8mUN1r3vIwh/GUti7GNbCX/+XcxS6qI2T9IP7ABe5WoEC/cdHU6QO\nVg/sGpeKFxNfhk+2crEoSLCIzxvhxg6tsqKXwHKxxQi1Xfeb93Oe3rNDsjT+FM4A\nGglLH5E4Nz3FC49M/GFImaYdir/Bt4b4zFi1BOqTRhWVn+IptCgXriA7yTktvZG9\nlYetGiJMLJ+iJBYgDzjrd9lqR8JzMvdpkOjvPwfBWkNzN+l8Pxhz2P8ieQfeOQDN\nnRudw9JdAgMBAAECggEAWQRNeMW8U6Nhg3JZalg35sfJpUhAaLymEkbUOe4eB4lG\nyLsPyM5EiWtoVX/UIMES4i9UHQ6BWL0OpYzX+c3UtSSAPL3cSTxU72aNl97NEapj\nsBIQfx6W76Y+Dzx0RNabyPHPxykgLL41Pf4njw+xP7JpiGK6GvZsgZ9a/UfQMl4T\n6DbuKG+1OiLBbBjmd/nPh0S+u/rbgSHBt96Hl633t8udHhRKbpQR9jwnyE7iDNEj\nyCgQ6LNa4NXPF4Wxi+m0yO4hgrX5VY764j/NtIloO+lxfSnk4wFat1HJIDAhz10U\n/8QG15tt9ZIwoZvJw8EzL8pF4Gy49zhlgtTQ2mdXeQKBgQD/b+/7d3bSUm6bpZJc\nDccyYxaDviUWWswYRxItyOCTxbr+K2+wCZ5iLElNkx/mqw9HbssnYfarqNeuE347\nVlIU7lwST3WzuQ/pUnqINmqrPPZwZlaCTXXirZPkwU+Vqa+27VNxss5gl37p9ui3\naBW5jAtGMQp4g00iESE3q8r2swKBgQDHPCFngJ0dA+XhE67nAZAqVWjElScGNkyK\ncKQQs/BhCWzeodlZ1pkepvJgSHq0RyZHulWOn9ZvuxdufjLzJHLM6gg/6z/A4mZd\nk9IfRDyEdvRTx6D3CTS9ZmpdFKQz1xQlaugBR7Dli5f8IN2sYuQ8ybZUMq2wRzY5\nDHnDvq0arwKBgGjUd5isHoeSbPJTsQ02WlnDcKoAjxfti3UrNbq0hfYfX+6PxPZp\n/CYuJqc/iggQi+S1A4rWGXW5hUpblaKkems8p2ycT6HCgVUwFDlym7RLAJiAZ2By\nib7NnbRz4UV6rjJUk7pFt4zMn7lFK5yZitDrOHVGCxYKTM1+WjOOvW0hAoGAIkOm\nHw3Qd3f/JfljoBj1uUIdFYntPzVBbqG2paS8l4OudI9zOO8eQFZH4uU0LSL7Y2SZ\naED2+Ro9CmSr0IMZN0KcjpmfykVlg3xzq6rpmYJ3vJzdgv7TUit16XIuVzgLH/BF\n3Ep/EssyJUtltEsBo66xK8PXeTSWD7OkkVSOosMCgYAcRonlm255RLCEDnNocHPY\nLHd3YArjNly22YKyqv0eBYnrRrv3aiBhLw5NHvvQmtunaSaf6j+konzN7qzFwFil\nTVasqWIlvUQaZiKdZCwXOV2UypPSaoLm3O7/EUdELoDlWDFm6G2zZVN53fSBPB4t\nKv9UuYaLIMC18ztRXH++Mg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-35rw1@conecaooporapi.iam.gserviceaccount.com",
+  "client_id": "115864612534871729740",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-35rw1%40conecaooporapi.iam.gserviceaccount.com",
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ],
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run lint"
+      ]
+    }
+  ],
+  "hosting": {
+    "public": "(public)",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "remoteconfig": {
+    "template": "remoteconfig.template.json"
+  }
+}
