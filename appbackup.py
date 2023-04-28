@@ -1,26 +1,14 @@
 from flask import Flask, jsonify, request
+from firebase_admin import credentials
 from flask_firebase_admin import FirebaseAdmin
 
-config = {
-    "apiKey": "AIzaSyAQsgygjK06AsyrAKg_HrbvO4dzItFeYTU",
-    "authDomain": "conecaooporapi.firebaseapp.com",
-    "databaseURL": "https://conecaooporapi-default-rtdb.firebaseio.com",
-    "projectId": "conecaooporapi",
-    "storageBucket": "conecaooporapi.appspot.com",
-    "messagingSenderId": "467005917293",
-    "appId": "1:467005917293:web:1aa02d35bb9483ae8b976"
-}
-
-cred = firebase_admin.Credentials.from_service_account_file(
-    r"C:\Users\joao.santos\Documents\DEV\PythonApi\firebase.json")
-
-firebase = pyrebase.initialize_app(config)
-
-firebase_admin.initialize_app(cred)
-
-storage = firebase.storage()
 
 app = Flask(__name__)
+app.config["FIREBASE_ADMIN_CREDENTIAL"] = credentials.Certificate(
+    r"C:\Users\joao.santos\Documents\DEV\PythonApi\firebase.json")
+app.config["FIREBASE_ADMIN_AUTHORIZATION_SCHEME"] = "JWT"
+app.config["FIREBASE_ADMIN_CHECK_REVOKED"] = False
+app.config["FIREBASE_ADMIN_PAYLOAD_ATTR"] = "firebase_jwt"
 firebase = FirebaseAdmin(app)
 
 livros = [
@@ -87,4 +75,5 @@ def excluir_livro(id):
     return jsonify(livros)
 
 
-app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
